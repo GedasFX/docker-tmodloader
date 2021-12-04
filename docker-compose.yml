@@ -1,5 +1,16 @@
 version: "3.8"
 
 services:
-  tmodloader:
+  tmlserver:
     build: .
+    stdin_open: true
+    tty: true
+    environment:
+      - TMODLOADER_VERSION=v0.11.8.5
+    volumes:
+      - terraria:/home/tmodloader/.local/share/Terraria
+    ports:
+      - 7777:7777
+
+volumes:
+  terraria:

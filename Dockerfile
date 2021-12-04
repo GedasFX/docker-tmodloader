@@ -1,9 +1,15 @@
 FROM ubuntu:20.04
 
-ENV LOADER_VERSION=LATEST
+RUN apt update && \
+    apt install -y curl wget
 
-WORKDIR /tmodloader
-COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
+RUN useradd -m tmodloader
+USER tmodloader
+WORKDIR /home/tmodloader
+
+RUN mkdir -p /home/tmodloader/.local/share/Terraria/
+VOLUME [ "/home/tmodloader/.local/share/Terraria/" ]
+
+COPY --chown=tmodloader:tmodloader entrypoint.sh .
 
 ENTRYPOINT [ "./entrypoint.sh" ]
