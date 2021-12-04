@@ -2,8 +2,7 @@
 
 GITHUB_URL='https://github.com/tModLoader/tModLoader/releases'
 
-if [ ! -f "version_locked" ]
-then
+if [ ! -f "version_locked" ]; then
     # Extract version
 
     LOADER_VERSION=`echo $TMODLOADER_VERSION | tr '[:upper:]' '[:lower:]'`
@@ -23,6 +22,10 @@ then
     touch version_locked
 fi
 
-./tModLoaderServer $0
-
-read
+if [ "$#" -gt 0 ]; then
+    ./tModLoaderServer $0
+elif [ -f "serverconfig.cfg" ]; then
+    ./tModLoaderServer -config serverconfig.cfg
+else
+    ./tModLoaderServer
+fi

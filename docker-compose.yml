@@ -8,9 +8,10 @@ services:
     environment:
       - TMODLOADER_VERSION=v0.11.8.5
     volumes:
-      - terraria:/home/tmodloader/.local/share/Terraria
+      - terraria:/root/.local/share/Terraria
+      - ./serverconfig.cfg:/root/serverconfig.cfg
     ports:
-      - 7777:7777
+      - "7777:7777"
 
 volumes:
   terraria:
