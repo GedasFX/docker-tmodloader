@@ -22,10 +22,4 @@ if [ ! -f "version_locked" ]; then
     touch version_locked
 fi
 
-if [ "$#" -gt 0 ]; then
-    ./tModLoaderServer $0
-elif [ -f "serverconfig.cfg" ]; then
-    ./tModLoaderServer -config serverconfig.cfg
-else
-    ./tModLoaderServer
-fi
+exec $@

@@ -2,16 +2,17 @@ version: "3.8"
 
 services:
   tmlserver:
-    build: .
+    image: gedasfx/tmodloader-server
     stdin_open: true
     tty: true
     environment:
       - TMODLOADER_VERSION=v0.11.8.5
     volumes:
       - terraria:/root/.local/share/Terraria
-      - ./serverconfig.cfg:/root/serverconfig.cfg
+    #  - ./serverconfig.cfg:/root/serverconfig.cfg
     ports:
-      - "7777:7777"
+      - "7778:7777"
+    command: ./tModLoaderServer -world .local/share/Terraria/ModLoader/Worlds/Test3.wld
 
 volumes:
   terraria:

@@ -7,4 +7,5 @@ VOLUME [ "/root/.local/share/Terraria/" ]
 
 WORKDIR /root
 COPY entrypoint.sh .
-ENTRYPOINT ./entrypoint.sh
+ENTRYPOINT [ "./entrypoint.sh" ]
+CMD [ "./tModLoaderServer" ]
