@@ -3,16 +3,15 @@ version: "3.8"
 services:
   tmlserver:
     image: gedasfx/tmodloader-server
-    stdin_open: true
-    tty: true
     environment:
-      - TMODLOADER_VERSION=v0.11.8.5
+      - TMLSERVER_VERSION=0.11.8.5                    # Required; tModLoaderServer version
+    # - TMLSERVER_AUTOSAVE_INTERVAL=*/2 * * * *       # Optional; RCON expression to specify how ofter to perform saving; defaults to 10 minutes
     volumes:
-      - terraria:/root/.local/share/Terraria
-    #  - ./serverconfig.cfg:/root/serverconfig.cfg
+      - terraria:/data
+      - ./serverconfig.txt:/server/serverconfig.txt   # Recommended to use.
     ports:
-      - "7778:7777"
-    command: ./tModLoaderServer -world .local/share/Terraria/ModLoader/Worlds/Test3.wld
+      - "7777:7777"
+    restart: unless-stopped
 
 volumes:
   terraria:

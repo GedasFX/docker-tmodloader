@@ -1,0 +1,6 @@
+# The only important parameter to set is the world (or set up auto-create). Everything else will use defaults.
+# A sample server config can be found at https://github.com/GameServerManagers/Game-Server-Configs/blob/master/Terraria/serverconfig.txt
+
+world=/data/ModLoader/Worlds/MyWorld.wld
+npcstream=3
+password=p@55w0rd
