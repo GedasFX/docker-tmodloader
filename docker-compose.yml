@@ -5,7 +5,7 @@ services:
     image: gedasfx/tmodloader-server
     environment:
       - TMLSERVER_VERSION=0.11.8.5                    # Required; tModLoaderServer version
-    # - TMLSERVER_AUTOSAVE_INTERVAL=*/2 * * * *       # Optional; RCON expression to specify how ofter to perform saving; defaults to 10 minutes
+    # - TMLSERVER_AUTOSAVE_INTERVAL=*/2 * * * *       # Optional; CRON expression to specify how ofter to perform saving; defaults to 10 minutes
     volumes:
       - terraria:/data
       - ./serverconfig.txt:/server/serverconfig.txt   # Recommended to use.
