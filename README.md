@@ -1,7 +1,8 @@
 # tModLoader Docker Image
 
 This docker image downloads and runs a tModLoader server in a docker image. Uses Ubuntu as base to mitigate stability issues.
-Features configurable auto save functionality, and graceful saving `docker stop` and the sort.
+
+Features configurable auto save functionality, and graceful saving (including `docker stop`).
 
 ## Basic `docker run` use case
 
@@ -44,4 +45,4 @@ docker logs tmlserver --tail 100 -f
 
 ## With `docker-compose`
 
-See [docker-compose.yml](./docker-compose.yml) file for an example.
+See [docker-compose.yml](https://github.com/GedasFX/tmodloader/blob/master/docker-compose.yml) file for an example.
