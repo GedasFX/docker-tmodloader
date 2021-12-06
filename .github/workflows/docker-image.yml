@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      
+    - name: Docker Metadata action
+      uses: docker/metadata-action@v3.6.2
+      with:
+        images: gedasfx/tmodloader-server
+        
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2.7.0
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
