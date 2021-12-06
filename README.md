@@ -34,7 +34,7 @@ docker run --rm -d --name tmlserver \
 
 The container in headless mode does not accept accept user input. To run commands, the following can be used:
 ```
-docker exec docker exec tmlserver run <command>
+docker exec tmlserver run <command>
 ```
 The logs (and command output) appears in the standard output, and can be seen via:
 
