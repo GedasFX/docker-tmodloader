@@ -1,17 +1,18 @@
 #!/bin/bash
 
+cd /server || exit
+
 STDOUT_PIPE=/tmp/tmod.out
 
 function shutdown() {
     run "exit"
-    TMLS_PID=$(pgrep tModLoader)
     while [ -e "/proc/$TMLS_PID" ]; do
         sleep .2
     done
     rm $STDOUT_PIPE
 }
 
-if [ ! -f "version_locked" ]; then
+if [ "$TMLSERVER_VERSION" != "$(cat current_version)" ]; then
     GITHUB_URL='https://github.com/tModLoader/tModLoader/releases'
 
     LOADER_TAR_FILE_NAME="tModLoader.Linux.v$TMLSERVER_VERSION.tar.gz"
@@ -25,12 +26,11 @@ if [ ! -f "version_locked" ]; then
     wget -c "$LOADER_DL_URL"
     tar -xz -f "$LOADER_TAR_FILE_NAME"
 
-    # Setup autosave
-    (crontab -l 2>/dev/null; echo "$TMLSERVER_AUTOSAVE_INTERVAL /usr/local/bin/run 'say Autosaving!' && /usr/local/bin/run 'save'") | crontab -
-
-    # Mark init as complete
-    touch version_locked
+    echo "$TMLSERVER_VERSION" > current_version
 fi
+
+# Setup autosave
+(crontab -l 2>/dev/null; echo "$TMLSERVER_AUTOSAVE_INTERVAL /usr/local/bin/run 'say Autosaving' && /usr/local/bin/run 'save'") | crontab -
 
 # Custom logic to handle the setup
 if [ "$1" = "setup" ]; then
@@ -41,6 +41,12 @@ trap shutdown SIGTERM SIGINT
 
 mkfifo $STDOUT_PIPE
 tmux new-session -d "./tModLoaderServer -config serverconfig.txt | tee $STDOUT_PIPE" &
-sleep 60 && cron &
+
+while [ -z "$TMLS_PID" ]; do
+    TMLS_PID=$(pgrep tModLoader)
+    sleep .2
+done
+
+tail --pid "$TMLS_PID" -n +1 -f /data/ModLoader/Logs/server.log &
 cat $STDOUT_PIPE &
 wait ${!}
