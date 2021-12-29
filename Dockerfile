@@ -3,7 +3,7 @@ FROM debian:buster-slim
 RUN apt update && \
     apt install -y curl wget tmux cron procps
 
-RUN ln -s /root/.local/share/Terraria /data
+RUN ln -s /root/.local/share/Terraria/ModLoader /data
 
 COPY entrypoint.sh /
 COPY run.sh /usr/local/bin/run
