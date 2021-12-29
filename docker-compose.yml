@@ -7,7 +7,7 @@ services:
       - TMLSERVER_VERSION=0.11.8.5                    # Required; tModLoaderServer version
     volumes:
       - ./tModLoader_data:/data                       # Optional, volume is created for this regardless
-      - ./server:/server                              # Optional, volume is created for this regardless
+      - ./tModLoader_server:/server                   # Optional, volume is created for this regardless
       - ./serverconfig.txt:/server/serverconfig.txt   # Recommended to use.
     ports:
       - "7777:7777"
