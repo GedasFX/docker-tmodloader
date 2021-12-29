@@ -48,7 +48,7 @@ while [ -z "$TMLS_PID" ]; do
     sleep .2
 done
 
-tail --pid "$TMLS_PID" -n +1 -f /data/ModLoader/Logs/server.log &
+tail --pid "$TMLS_PID" -n +1 -f /data/Logs/server.log &
 cat $STDOUT_PIPE &
 
 wait ${!}
