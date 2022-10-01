@@ -12,10 +12,11 @@ RUN groupadd -r tModLoader -g 1000 && \
 COPY scripts/ /scripts/
 
 COPY entrypoint.sh /
-COPY run.sh /usr/local/bin/run
+COPY scripts/run.sh /usr/local/bin/run
+COPY scripts/run-user.sh /usr/local/bin/run-user
 
 EXPOSE 7777
-ENV TMLSERVER_AUTOSAVE_INTERVAL="*/10 * * * *"
+ENV TMLSERVER_AUTOSAVE_INTERVAL="* * * * *"
 
 VOLUME [ "/data" ]
 

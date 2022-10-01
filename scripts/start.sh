@@ -9,15 +9,15 @@
 
 cd /data/server
 
-# STDOUT_PIPE=/tmp/tmod.out
+function shutdown() {
+    run-user "say Server Shutting Down!" && run-user "exit"
 
-# function shutdown() {
-#     run "exit"
-#     while [ -e "/proc/$TMLS_PID" ]; do
-#         sleep .2
-#     done
-#     rm $STDOUT_PIPE
-# }
+    while [ -e "/proc/$TMLS_PID" ]; do
+        sleep .2
+    done
+
+    rm $STDOUT_PIPE
+}
 
 if [ "$TMLSERVER_VERSION" != "$(cat current_version)" ]; then
 
@@ -27,25 +27,27 @@ if [ "$TMLSERVER_VERSION" != "$(cat current_version)" ]; then
 fi
 
 # Custom logic to handle the setup
-if [ "$1" = "setup" ]; then
+if [ "$1" != "daemon" ]; then
     exec ./start-tModLoaderServer.sh -nosteam
 fi
 
-# # Setup autosave
-# [ -z "$(crontab -l)" ] && echo "$TMLSERVER_AUTOSAVE_INTERVAL /usr/local/bin/run 'say Autosaving!' && /usr/local/bin/run 'save'" | crontab -
-# cron &
+trap shutdown SIGTERM SIGINT
 
-# trap shutdown SIGTERM SIGINT
+STDOUT_PIPE=/tmp/tmod.out
 
-# mkfifo $STDOUT_PIPE
-# tmux new-session -d "./start-tModLoaderServer.sh -nosteam | tee $STDOUT_PIPE" &
+mkfifo $STDOUT_PIPE
+tmux new-session -d "./start-tModLoaderServer.sh -nosteam | tee $STDOUT_PIPE" &
 
-# while [ -z "$TMLS_PID" ]; do
-#     TMLS_PID=$(pgrep tModLoader)
-#     sleep .2
-# done
+echo "a"
 
-# tail --pid "$TMLS_PID" -n +1 -f /data/Logs/server.log &
-# cat $STDOUT_PIPE &
+while [ -z "$TMLS_PID" ]; do
+    TMLS_PID=$(pgrep dotnet)
+    sleep .2
+done
 
-# wait ${!}
+echo "B"
+
+tail --pid "$TMLS_PID" -n +1 -f /data/server/tModLoader-Logs/server.log &
+cat $STDOUT_PIPE &
+
+wait ${!}
