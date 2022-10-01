@@ -22,29 +22,27 @@ tModLoader does not like to print its logs to stdout for some reason, this image
 
 To run a specified tModLoader version, use `TMODLOADER_VERSION` environment variable.
 
-Example to run a 0.11.8.5 tModLoader server
+Example to run a 2022.09.47.1 tModLoader server
 
-```
+```bash
 docker run -it --rm \
            -p 7777:7777 \
-           -e TMLSERVER_VERSION=0.11.8.5 \
-           -v $(pwd)/tModLoader_data:/data \
-           -v $(pwd)/tModLoader_server:/server \
-       gedasfx/tmodloader-server setup
+           -e TMLSERVER_VERSION=2022.09.47.1 \
+           -v $(pwd)/data:/data \
+       gedasfx/tmodloader-server:2 setup
 ```
 
 ### Running with a config file
 
 This is the recommended way of running the server
 
-```
+```bash
 docker run --rm -d --name tmlserver \
            -p 7777:7777 \
-           -e TMLSERVER_VERSION=0.11.8.5 \
-           -v $(pwd)/tModLoader_data:/data \
-           -v $(pwd)/tModLoader_server:/server \
-           -v $(pwd)/serverconfig.txt:/server/serverconfig.txt \
-       gedasfx/tmodloader-server
+           -e TMLSERVER_VERSION=2022.09.47.1 \
+           -v $(pwd)/data:/data \
+           -v $(pwd)/serverconfig.txt:/data/server/serverconfig.txt \
+       gedasfx/tmodloader-server:1
 ```
 
 ### Executing commands
@@ -59,7 +57,21 @@ The logs (and command output) appears in the standard output, and can be seen vi
 docker logs tmlserver --tail 100 -f
 ```
 
+### Legacy tModLoader 1.3
+
+To enable support for 1.3 TML version, use ENV `TMLSERVER_LEGACY=true`:
+
+```bash
+docker run --rm -d --name tmlserver \
+           -p 7777:7777 \
+           -e TMLSERVER_VERSION=0.11.8.5 \
+           -e TMLSERVER_LEGACY=true \
+           -v $(pwd)/tModLoader_data:/data \
+           -v $(pwd)/tModLoader_server:/server \
+           -v $(pwd)/serverconfig.txt:/server/serverconfig.txt \
+       gedasfx/tmodloader-server
+```
+
 ## With `docker-compose`
 
 See [docker-compose.yml](https://github.com/GedasFX/tmodloader/blob/master/docker-compose.yml) file for an example.
-
