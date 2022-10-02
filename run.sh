@@ -1,3 +1,3 @@
 #!/bin/sh
 
-tmux send-keys "$1" Enter
+exec gosu tModLoader:tModLoader "/scripts/run_user.sh" "$@"

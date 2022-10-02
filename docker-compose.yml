@@ -4,10 +4,9 @@ services:
   tmlserver:
     image: gedasfx/tmodloader-server
     environment:
-      - TMLSERVER_VERSION=0.11.8.5                    # Required; tModLoaderServer version
+      - TMLSERVER_VERSION=2022.09.47.1                # Required; tModLoaderServer version
     volumes:
-      - ./tModLoader_data:/data                       # Optional, volume is created for this regardless
-      - ./tModLoader_server:/server                   # Optional, volume is created for this regardless
-      - ./serverconfig.txt:/server/serverconfig.txt   # Recommended to use.
+      - ./data:/data                                  # Optional, volume is created for this regardless
+      - ./serverconfig.txt:/server/serverconfig.txt   # Recommended to mount it this way or edit the generated file.
     ports:
       - "7777:7777"
