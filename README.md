@@ -4,6 +4,10 @@ This docker image downloads and runs a tModLoader server in a docker image.
 
 Features configurable auto-save functionality, and graceful saving (including `docker stop`).
 
+To install mods, put them in the `/data/tModLoader/Mods` folder. Mods can be downloaded from the Steam Workshop. Downloaded mods will be placed in the `$STEAM_DIR/steamapps/workshop/content/1281930` directory. From there, mod files (`*.tmod`) can be copied over.
+
+IMPORTANT NOTE: Due to the unstable nature of Mods in both multiplayer and Linux, some mods may not function properly. As an alternative, use Steam multiplayer instead.
+
 ## Features
 
 ### Version Select
