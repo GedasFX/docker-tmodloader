@@ -71,7 +71,7 @@ docker logs tmlserver --tail 100 -f
 
 ### Legacy tModLoader 1.3
 
-To enable support for v1.3 of tModLoader, use major version `1` of the image. Old documentation can be found on the [v1.3 branch]().
+To enable support for v1.3 of tModLoader, use major version `1` of the image. Old documentation can be found on the [v1.3 branch](https://github.com/GedasFX/tmodloader/tree/1.3).
 
 ```bash
 docker run --rm -d --name tmlserver \
