@@ -12,7 +12,7 @@ Can easily swap between versions by changing the `TMLSERVER_VERSION` env variabl
 
 ### Autosaving
 
-Auto saves the game. By default, this occurs every 10 minutes and can be customized by providing a custom cron expression to the `TMLSERVER_AUTOSAVE_INTERVAL` env variable. The default value is `*/10 * * * *`.
+Auto saves the game. By default, this occurs every 10 minutes and can be customized by providing a custom cron expression to the `TMLSERVER_AUTOSAVE_INTERVAL` environment variable. The default value is `*/10 * * * *`.
 
 ### Easy log access
 

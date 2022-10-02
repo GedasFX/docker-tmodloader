@@ -10,7 +10,8 @@
 cd /data/server
 
 function shutdown() {
-    run-user "say Server Shutting Down!" && run-user "exit"
+    /scripts/run_user.sh "say Server Shutting Down!"
+    /scripts/run_user.sh "exit"
 
     while [ -e "/proc/$TMLS_PID" ]; do
         sleep .2
@@ -38,14 +39,13 @@ STDOUT_PIPE=/tmp/tmod.out
 mkfifo $STDOUT_PIPE
 tmux new-session -d "./start-tModLoaderServer.sh -nosteam | tee $STDOUT_PIPE" &
 
-echo "a"
-
 while [ -z "$TMLS_PID" ]; do
     TMLS_PID=$(pgrep dotnet)
     sleep .2
 done
 
-echo "B"
+# Autosave Job
+cron
 
 tail --pid "$TMLS_PID" -n +1 -f /data/server/tModLoader-Logs/server.log &
 cat $STDOUT_PIPE &

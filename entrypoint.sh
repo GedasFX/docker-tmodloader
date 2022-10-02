@@ -10,7 +10,9 @@ if [ "$TMLSERVER_VERSION" == v* ]; then
 fi
 
 # # Setup autosave
-[ -z "$(crontab -l)" ] && echo "$TMLSERVER_AUTOSAVE_INTERVAL /usr/local/bin/run 'say Autosaving!' && /usr/local/bin/run 'save'" | crontab -
-cron
+[ ! -f "/etc/cron.d/autosave" ] &&
+    echo "$TMLSERVER_AUTOSAVE_INTERVAL /scripts/autosave.sh" >/etc/cron.d/autosave &&
+    crontab -u tModLoader /etc/cron.d/autosave &&
+    chmod u+s /usr/sbin/cron
 
 exec gosu tModLoader:tModLoader "/scripts/start.sh" "$@"

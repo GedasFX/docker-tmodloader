@@ -6,17 +6,13 @@ RUN apt update && \
 RUN groupadd -r tModLoader -g 1000 && \
     useradd -u 1000 -r -g tModLoader -m tModLoader
 
-# RUN  && chown -h tModLoader:tModLoader /data/tModLoader
-#     # ln -s /tModLoader/server /data/server && chown -h tModLoader:tModLoader /data/server
-
 COPY scripts/ /scripts/
 
 COPY entrypoint.sh /
-COPY scripts/run.sh /usr/local/bin/run
-COPY scripts/run-user.sh /usr/local/bin/run-user
+COPY run.sh /usr/local/bin/run
 
 EXPOSE 7777
-ENV TMLSERVER_AUTOSAVE_INTERVAL="* * * * *"
+ENV TMLSERVER_AUTOSAVE_INTERVAL="*/10 * * * *"
 
 VOLUME [ "/data" ]
 
